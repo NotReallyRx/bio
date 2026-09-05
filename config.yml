@@ -1,6 +1,6 @@
 discord:
   id: "1390805997144113244"
-  refreshMs: 5000
+  refreshMs: 1000
 
 twitch:
   login: notreallyrx
