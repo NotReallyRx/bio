@@ -152,6 +152,46 @@ body {
   text-overflow: ellipsis;
 }
 
+.activity-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.activity-link:hover {
+  border-color: var(--fg-dim);
+}
+
+.activity-link .activity-type {
+  color: var(--green);
+}
+
+.activity-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.activity-progress-time {
+  font-size: 10px;
+  color: var(--fg-dim);
+}
+
+.activity-progress-track {
+  width: 100%;
+  height: 3px;
+  background: var(--bg2);
+  overflow: hidden;
+}
+
+.activity-progress-fill {
+  height: 100%;
+  background: var(--green);
+  width: 0%;
+}
+
 .divider {
   border-top: 1px dashed var(--bg2);
   margin: 18px 0;
