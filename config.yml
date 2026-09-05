@@ -1,11 +1,11 @@
 discord:
   id: "1390805997144113244"
-  refreshMs: 15000
+  refreshMs: 5000
 
 twitch:
   login: notreallyrx
   clientId: kimne78kx3ncx6brgo4mv6wki5h1ko
-  refreshMs: 15000
+  refreshMs: 1000
 
 modules:
   - discord.js
