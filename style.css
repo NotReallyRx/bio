@@ -15,7 +15,8 @@
   border-radius: 0 !important;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
 }
@@ -23,7 +24,7 @@ html, body {
 body {
   background: var(--bg0);
   color: var(--fg);
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,10 +89,18 @@ body {
   flex-shrink: 0;
 }
 
-.dot.online   { background: var(--green); }
-.dot.idle     { background: var(--yellow); }
-.dot.dnd      { background: var(--red); }
-.dot.offline  { background: var(--gray); }
+.dot.online {
+  background: var(--green);
+}
+.dot.idle {
+  background: var(--yellow);
+}
+.dot.dnd {
+  background: var(--red);
+}
+.dot.offline {
+  background: var(--gray);
+}
 
 .activities {
   display: none;
@@ -215,7 +224,9 @@ body {
   font-size: 13px;
   padding: 10px 12px;
   border: 1px solid var(--bg2);
-  transition: border-color 0.15s ease, color 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 
 .links a:hover {

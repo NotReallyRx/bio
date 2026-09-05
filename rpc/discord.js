@@ -13,7 +13,7 @@ let detectableGamesPromise = null;
 function loadDetectableGames() {
   if (!detectableGamesPromise) {
     detectableGamesPromise = fetch(
-      `${CORS_PROXY}${encodeURIComponent("https://discord.com/api/v10/applications/detectable")}`
+      `${CORS_PROXY}${encodeURIComponent("https://discord.com/api/v10/applications/detectable")}`,
     )
       .then((res) => res.json())
       .then((list) => {
@@ -60,9 +60,6 @@ function avatarUrlFor(user) {
   return `https://cdn.discordapp.com/embed/avatars/${fallback}.png`;
 }
 
-
-
-
 function timerFor(timestamps) {
   if (!timestamps?.start) return null;
   return { start: timestamps.start, end: timestamps.end || null };
@@ -90,7 +87,7 @@ async function refresh(discordId, commands) {
     commands.setStatus(data.discord_status || "offline");
 
     const spotify = data.spotify;
-    const activities = (data.activities || []).filter((a) => a.type !== 4); 
+    const activities = (data.activities || []).filter((a) => a.type !== 4);
 
     const boxes = [];
     for (const activity of activities) {
@@ -121,12 +118,6 @@ async function refresh(discordId, commands) {
     console.error(err);
   }
 }
-
-
-
-
-
-
 
 export function init(config, commands) {
   const { id, refreshMs = 5000 } = config.discord;

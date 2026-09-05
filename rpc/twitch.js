@@ -24,7 +24,9 @@ async function refresh(login, clientId, commands) {
     const subLines = [];
     if (stream.game?.name) subLines.push(stream.game.name);
     if (typeof stream.viewersCount === "number") {
-      subLines.push(`${stream.viewersCount} viewer${stream.viewersCount === 1 ? "" : "s"}`);
+      subLines.push(
+        `${stream.viewersCount} viewer${stream.viewersCount === 1 ? "" : "s"}`,
+      );
     }
 
     commands.setActivities("twitch", [
@@ -39,8 +41,6 @@ async function refresh(login, clientId, commands) {
     console.error("couldn't reach twitch", err);
   }
 }
-
-
 
 export function init(config, commands) {
   const { login, clientId, refreshMs = 15000 } = config.twitch;

@@ -22,10 +22,6 @@ function renderSocials(socials = []) {
   });
 }
 
-
-
-
-
 async function loadRpcModules(config) {
   const names = config.modules || [];
 

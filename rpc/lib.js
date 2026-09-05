@@ -1,4 +1,3 @@
-
 const STATUS_LABELS = {
   online: "online",
   idle: "idle",
@@ -13,8 +12,6 @@ const dotEl = document.getElementById("status-dot");
 const statusTextEl = document.getElementById("status-text");
 const activitiesEl = document.getElementById("activities");
 
-
-
 const boxesByKey = new Map();
 
 function formatDuration(ms) {
@@ -26,12 +23,6 @@ function formatDuration(ms) {
   const ss = String(s).padStart(2, "0");
   return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
 }
-
-
-
-
-
-
 
 function attachTimer(el, timer) {
   const row = document.createElement("div");
@@ -76,7 +67,14 @@ function attachTimer(el, timer) {
   el._tickInterval = setInterval(tick, 1000);
 }
 
-function createBox({ type, title, subLines = [], art = "", href = "", timer = null }) {
+function createBox({
+  type,
+  title,
+  subLines = [],
+  art = "",
+  href = "",
+  timer = null,
+}) {
   const el = document.createElement(href ? "a" : "div");
   el.className = href ? "activity-box activity-link" : "activity-box";
   if (href) {
@@ -117,9 +115,6 @@ export const commands = {
     statusTextEl.textContent = text;
   },
 
-  
-  
-  
   setActivities(key, boxes) {
     const old = boxesByKey.get(key);
     if (old) {
