@@ -8,19 +8,19 @@
   --green: #b8bb26;
   --yellow: #fabd2f;
   --gray: #928374;
+  --card-width-base: 480px;
+  --card-min-height-base: 0px;
+  --card-scale: 1;
 }
-
 * {
   box-sizing: border-box;
   border-radius: 0 !important;
 }
-
 html,
 body {
   height: 100%;
   margin: 0;
 }
-
 body {
   background: var(--bg0);
   color: var(--fg);
@@ -30,65 +30,57 @@ body {
   justify-content: center;
   padding: 24px;
 }
-
 .card {
   width: 100%;
-  max-width: 360px;
+  max-width: calc(var(--card-width-base) * var(--card-scale));
+  min-height: calc(var(--card-min-height-base) * var(--card-scale));
   background: var(--bg1);
   border: 1px solid var(--bg2);
   padding: 24px;
 }
-
 .head {
   display: flex;
   align-items: center;
   gap: 14px;
 }
-
 .avatar {
-  width: 56px;
-  height: 56px;
+  width: 84px;
+  height: 84px;
   object-fit: cover;
   border: 1px solid var(--bg2);
   background: var(--bg2);
   flex-shrink: 0;
 }
-
 .head-text {
   display: flex;
   flex-direction: column;
   gap: 6px;
   min-width: 0;
 }
-
 .name {
   font-size: 16px;
   font-weight: 700;
   margin: 0;
   letter-spacing: 0.02em;
 }
-
 .username {
   font-size: 12px;
   color: var(--fg-dim);
 }
-
 .status-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 8px;
+  font-size: 14px;
   color: var(--fg-dim);
-  margin-top: 6px;
+  margin-top: 8px;
 }
-
 .dot {
-  width: 8px;
-  height: 8px;
+  width: 12px;
+  height: 12px;
   background: var(--gray);
   flex-shrink: 0;
 }
-
 .dot.online {
   background: var(--green);
 }
@@ -101,111 +93,90 @@ body {
 .dot.offline {
   background: var(--gray);
 }
-
 .activities {
   display: none;
   flex-direction: column;
   gap: 8px;
 }
-
 .activities:not(:empty) {
   display: flex;
   padding-bottom: 18px;
   margin-bottom: 18px;
   border-bottom: 1px dashed var(--bg2);
 }
-
 .activity-box {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: stretch;
+  gap: 12px;
   border: 1px solid var(--bg2);
-  padding: 8px 10px;
+  padding: 12px 14px;
   min-width: 0;
+  height: 96px;
 }
-
 .activity-art {
-  width: 32px;
-  height: 32px;
+  height: 90%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  align-self: center;
   object-fit: cover;
-  border: 1px solid var(--bg2);
-  background: var(--bg2);
   flex-shrink: 0;
 }
-
 .activity-text {
   display: flex;
   flex-direction: column;
   gap: 2px;
   min-width: 0;
+  justify-content: center;
 }
-
-.activity-type {
-  font-size: 10px;
-  color: var(--gray);
-}
-
 .activity-title {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--fg);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
-
 .activity-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--fg-dim);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
 .activity-link {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
   transition: border-color 0.15s ease;
 }
-
 .activity-link:hover {
   border-color: var(--fg-dim);
 }
-
-.activity-link .activity-type {
-  color: var(--green);
-}
-
 .activity-progress {
   display: flex;
   flex-direction: column;
   gap: 4px;
   margin-top: 4px;
 }
-
 .activity-progress-time {
   font-size: 10px;
   color: var(--fg-dim);
 }
-
 .activity-progress-track {
   width: 100%;
   height: 3px;
   background: var(--bg2);
   overflow: hidden;
 }
-
 .activity-progress-fill {
   height: 100%;
   background: var(--green);
   width: 0%;
 }
-
 .divider {
   border-top: 1px dashed var(--bg2);
   margin: 18px 0;
 }
-
 .links {
   list-style: none;
   margin: 0;
@@ -214,7 +185,6 @@ body {
   flex-direction: column;
   gap: 8px;
 }
-
 .links a {
   display: flex;
   align-items: center;
@@ -228,16 +198,13 @@ body {
     border-color 0.15s ease,
     color 0.15s ease;
 }
-
 .links a:hover {
   border-color: var(--fg-dim);
   color: var(--yellow);
 }
-
 .links a span.arrow {
   color: var(--fg-dim);
 }
-
 .foot {
   text-align: center;
   font-size: 10px;

@@ -1,3 +1,6 @@
+layout:
+  scale: 1
+
 discord:
   id: "1390805997144113244"
   refreshMs: 1000

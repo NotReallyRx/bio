@@ -42,6 +42,14 @@ async function loadRpcModules(config) {
 async function main() {
   try {
     const config = await loadConfig();
+
+    if (config.layout?.scale) {
+      document.documentElement.style.setProperty(
+        "--card-scale",
+        config.layout.scale,
+      );
+    }
+
     renderSocials(config.socials);
     await loadRpcModules(config);
   } catch (err) {
