@@ -10,7 +10,12 @@ const avatarEl = document.getElementById("avatar");
 const dotEl = document.getElementById("status-dot");
 const statusTextEl = document.getElementById("status-text");
 const activitiesEl = document.getElementById("activities");
-const boxesByKey = new Map();
+
+const rawByKey = new Map();
+let currentSlots = [];
+let rotationOffset = 0;
+let wheelLocked = false;
+
 function formatDuration(ms) {
   const totalSeconds = Math.max(0, Math.floor(ms / 1000));
   const h = Math.floor(totalSeconds / 3600);
@@ -20,12 +25,15 @@ function formatDuration(ms) {
   const ss = String(s).padStart(2, "0");
   return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
 }
+
 function attachTimer(el, timer) {
   const row = document.createElement("div");
   row.className = "activity-progress";
+
   const timeEl = document.createElement("span");
   timeEl.className = "activity-progress-time";
   row.appendChild(timeEl);
+
   let fillEl = null;
   if (timer.end) {
     const track = document.createElement("div");
@@ -35,16 +43,20 @@ function attachTimer(el, timer) {
     track.appendChild(fillEl);
     row.appendChild(track);
   }
+
   el.querySelector(".activity-text").appendChild(row);
+
   function tick() {
     const now = Date.now();
     const elapsed = now - timer.start;
+
     if (timer.end) {
       const total = timer.end - timer.start;
       const clampedElapsed = Math.min(Math.max(elapsed, 0), total);
       const pct = total > 0 ? (clampedElapsed / total) * 100 : 0;
       fillEl.style.width = `${pct}%`;
       timeEl.textContent = `${formatDuration(clampedElapsed)} / ${formatDuration(total)}`;
+
       if (elapsed >= total) {
         clearInterval(el._tickInterval);
       }
@@ -52,9 +64,11 @@ function attachTimer(el, timer) {
       timeEl.textContent = `${formatDuration(Math.max(elapsed, 0))} elapsed`;
     }
   }
+
   tick();
   el._tickInterval = setInterval(tick, 1000);
 }
+
 function createBox({
   type,
   title,
@@ -77,11 +91,80 @@ function createBox({
       ${subLines.map((line) => `<span class="activity-sub">${line}</span>`).join("")}
     </div>
   `;
+
   if (timer && timer.start) {
     attachTimer(el, timer);
   }
+
   return el;
 }
+
+function rotateArray(arr, offset) {
+  const n = arr.length;
+  if (n === 0) return arr;
+  const o = ((offset % n) + n) % n;
+  return arr.slice(n - o).concat(arr.slice(0, n - o));
+}
+
+function getCombinedBoxes() {
+  let combined = [];
+  for (const arr of rawByKey.values()) combined = combined.concat(arr);
+  return combined;
+}
+
+function renderActivities() {
+  currentSlots.forEach((slot) => {
+    if (slot._box && slot._box._tickInterval) {
+      clearInterval(slot._box._tickInterval);
+    }
+    slot.remove();
+  });
+  currentSlots = [];
+
+  const combined = getCombinedBoxes();
+  if (combined.length === 0) return;
+
+  const hasMore = combined.length > 3;
+  const rotated = rotateArray(combined, rotationOffset);
+  const visible = rotated.slice(0, 3);
+
+  visible.forEach((params, idx) => {
+    const slot = document.createElement("div");
+    slot.className = "activity-slot";
+
+    const boxEl = createBox(params);
+    slot._box = boxEl;
+    slot.appendChild(boxEl);
+
+    if (hasMore && idx === 1) {
+      const peek = document.createElement("div");
+      peek.className = "activity-peek";
+      slot.appendChild(peek);
+    }
+
+    activitiesEl.appendChild(slot);
+    currentSlots.push(slot);
+  });
+}
+
+activitiesEl.addEventListener(
+  "wheel",
+  (e) => {
+    if (getCombinedBoxes().length <= 3) return;
+    e.preventDefault();
+    if (wheelLocked) return;
+
+    rotationOffset += e.deltaY > 0 ? 1 : -1;
+    renderActivities();
+
+    wheelLocked = true;
+    setTimeout(() => {
+      wheelLocked = false;
+    }, 300);
+  },
+  { passive: false },
+);
+
 export const commands = {
   setProfile({ name, username, avatarUrl }) {
     displayNameEl.textContent = name;
@@ -89,23 +172,18 @@ export const commands = {
     avatarEl.src = avatarUrl;
     avatarEl.alt = username;
   },
+
   setStatus(status) {
     dotEl.className = `dot ${status}`;
     statusTextEl.textContent = STATUS_LABELS[status] || status;
   },
+
   setStatusText(text) {
     statusTextEl.textContent = text;
   },
+
   setActivities(key, boxes) {
-    const old = boxesByKey.get(key);
-    if (old) {
-      old.forEach((el) => {
-        if (el._tickInterval) clearInterval(el._tickInterval);
-        el.remove();
-      });
-    }
-    const els = boxes.map(createBox);
-    els.forEach((el) => activitiesEl.appendChild(el));
-    boxesByKey.set(key, els);
+    rawByKey.set(key, boxes);
+    renderActivities();
   },
 };

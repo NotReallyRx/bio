@@ -15,14 +15,14 @@
   <body>
     <main class="card">
       <div class="head">
-        <img class="avatar" id="avatar" src="" alt="avatar" />
+        <div class="avatar-wrap">
+          <img class="avatar" id="avatar" src="" alt="avatar" />
+          <span class="dot" id="status-dot"></span>
+        </div>
         <div class="head-text">
           <h1 class="name" id="display-name">NotRx</h1>
           <span class="username" id="username"></span>
-          <div class="status-row">
-            <span class="dot" id="status-dot"></span>
-            <span class="status-text" id="status-text">connecting…</span>
-          </div>
+          <span class="status-text" id="status-text" hidden></span>
         </div>
       </div>
 
@@ -32,6 +32,35 @@
 
       <ul class="links" id="links"></ul>
     </main>
+
+    <div class="player-bar" id="player-bar">
+      <button class="player-toggle" id="player-toggle" aria-label="Play">
+        <svg class="icon-play" viewBox="0 0 24 24" width="14" height="14">
+          <path d="M6 4l14 8-14 8V4z" fill="currentColor" />
+        </svg>
+        <svg
+          class="icon-pause"
+          viewBox="0 0 24 24"
+          width="14"
+          height="14"
+          style="display: none"
+        >
+          <rect x="5" y="4" width="5" height="16" fill="currentColor" />
+          <rect x="14" y="4" width="5" height="16" fill="currentColor" />
+        </svg>
+      </button>
+
+      <div class="player-info">
+        <span class="player-title" id="player-title">No track</span>
+        <div class="player-progress-track" id="player-progress-track">
+          <div class="player-progress-fill" id="player-progress-fill"></div>
+        </div>
+      </div>
+
+      <span class="player-time" id="player-time">0:00</span>
+
+      <audio id="player-audio" preload="metadata"></audio>
+    </div>
 
     <script type="module" src="main.js"></script>
   </body>

@@ -25,7 +25,9 @@ body {
   background: var(--bg0);
   color: var(--fg);
   font-family: "JetBrains Mono", monospace;
+  min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 24px;
@@ -43,6 +45,10 @@ body {
   align-items: center;
   gap: 14px;
 }
+.avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
 .avatar {
   width: 84px;
   height: 84px;
@@ -50,6 +56,29 @@ body {
   border: 1px solid var(--bg2);
   background: var(--bg2);
   flex-shrink: 0;
+  display: block;
+}
+.dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  background: var(--gray);
+  border: 3px solid var(--bg1);
+  flex-shrink: 0;
+}
+.dot.online {
+  background: var(--green);
+}
+.dot.idle {
+  background: var(--yellow);
+}
+.dot.dnd {
+  background: var(--red);
+}
+.dot.offline {
+  background: var(--gray);
 }
 .head-text {
   display: flex;
@@ -66,32 +95,6 @@ body {
 .username {
   font-size: 12px;
   color: var(--fg-dim);
-}
-.status-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--fg-dim);
-  margin-top: 8px;
-}
-.dot {
-  width: 12px;
-  height: 12px;
-  background: var(--gray);
-  flex-shrink: 0;
-}
-.dot.online {
-  background: var(--green);
-}
-.dot.idle {
-  background: var(--yellow);
-}
-.dot.dnd {
-  background: var(--red);
-}
-.dot.offline {
-  background: var(--gray);
 }
 .activities {
   display: none;
@@ -209,4 +212,79 @@ body {
   text-align: center;
   font-size: 10px;
   color: var(--gray);
+}
+.player-bar {
+  width: 100%;
+  max-width: calc(var(--card-width-base) * var(--card-scale) + 40px);
+  background: var(--bg1);
+  border: 1px solid var(--bg2);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.player-toggle {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  background: var(--bg2);
+  border: 1px solid var(--bg2);
+  color: var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+}
+.player-toggle:hover {
+  color: var(--yellow);
+}
+.player-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.player-title {
+  font-size: 12px;
+  color: var(--fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.player-progress-track {
+  width: 100%;
+  height: 4px;
+  background: var(--bg2);
+  cursor: pointer;
+}
+.player-progress-fill {
+  height: 100%;
+  background: var(--green);
+  width: 0%;
+}
+.player-time {
+  font-size: 10px;
+  color: var(--fg-dim);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.activity-slot {
+  position: relative;
+}
+
+.activity-peek {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -8px;
+  height: 8px;
+  background: var(--bg2);
+  border: 1px solid var(--bg2);
+  z-index: -1;
 }
