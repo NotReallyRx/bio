@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="viewport">
+      <div class="track" id="track">
+        <section class="view" id="view-bio" aria-label="Bio">
     <main class="card">
       <div class="head">
         <div class="avatar-wrap">
@@ -32,6 +35,64 @@
 
       <ul class="links" id="links"></ul>
     </main>
+        </section>
+
+        <section class="view" id="view-ports" aria-label="Web ports" aria-hidden="true" inert>
+          <main class="card">
+            <div class="head">
+              <div class="head-text">
+                <h1 class="name">web ports</h1>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <section class="port-section" aria-labelledby="class09-heading">
+              <h2 class="section-label" id="class09-heading">Class of '09</h2>
+              <ul class="links">
+                <li><a href="https://notreallyrx.github.io/C09/" data-url="https://notreallyrx.github.io/C09/"><span>class of '09</span><span class="arrow">-></span></a></li>
+                <li><a href="https://notreallyrx.github.io/C09RU/" data-url="https://notreallyrx.github.io/C09RU/"><span>Class of '09: The Re-up</span><span class="arrow">-></span></a></li>
+                <li><a href="https://notreallyrx.github.io/C09FS/" data-url="https://notreallyrx.github.io/C09FS/"><span>Class of '09: The Flipside</span><span class="arrow">-></span></a></li>
+              </ul>
+            </section>
+
+            <section class="port-section" aria-labelledby="omori-heading">
+              <h2 class="section-label" id="omori-heading">OMORI</h2>
+              <ul class="links">
+                <li><a href="https://notreallyrx.github.io/omori/" data-url="https://notreallyrx.github.io/omori/"><span>OMORI</span><span class="arrow">-></span></a></li>
+              </ul>
+            </section>
+
+            <section class="port-section" aria-labelledby="milk-heading">
+              <h2 class="section-label" id="milk-heading">Milk</h2>
+              <ul class="links">
+                <li><a href="https://notreallyrx.github.io/Milk-inside-a-bag-of-milk-inside-a-bag-of-milk/" data-url="https://notreallyrx.github.io/Milk-inside-a-bag-of-milk-inside-a-bag-of-milk/"><span>Milk Inside a bag of milk</span><span class="arrow">-></span></a></li>
+                <li><a href="https://notreallyrx.github.io/Milk-outside-a-bag-of-milk-outside-a-bag-of-milk/" data-url="https://notreallyrx.github.io/Milk-outside-a-bag-of-milk-outside-a-bag-of-milk/"><span>milk outside a bag of milk</span><span class="arrow">-></span></a></li>
+              </ul>
+            </section>
+          </main>
+        </section>
+      </div>
+    </div>
+
+    <button class="edge-tab edge-tab-right" id="tab-ports" type="button" aria-label="Open web ports">
+      <span class="tab-arrow">&gt;</span><span class="tab-label">ports</span>
+    </button>
+    <button class="edge-tab edge-tab-left" id="tab-bio" type="button" aria-label="Back to bio" inert>
+      <span class="tab-arrow">&lt;</span><span class="tab-label">bio</span>
+    </button>
+
+    <section class="viewer" id="viewer" aria-label="Embedded site viewer" aria-hidden="true">
+      <div class="viewer-bar">
+        <button type="button" id="back-button">Back</button>
+        <span class="viewer-title" id="viewer-title">Site viewer</span>
+        <button type="button" id="open-tab-button">Open in new tab</button>
+        <button type="button" id="refresh-button">Refresh</button>
+        <button type="button" id="fullscreen-button">Fullscreen</button>
+      </div>
+      <div class="frame-wrap"></div>
+      <div class="viewer-note" id="viewer-note"></div>
+    </section>
 
     <div class="player-bar" id="player-bar">
       <button class="player-toggle" id="player-toggle" aria-label="Play">
@@ -63,5 +124,6 @@
     </div>
 
     <script type="module" src="main.js"></script>
+    <script src="ports.js"></script>
   </body>
 </html>
