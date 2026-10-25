@@ -22,6 +22,43 @@ function renderSocials(socials = []) {
   });
 }
 
+function renderPorts(ports = []) {
+  const container = document.getElementById("ports-sections");
+  if (!container) return;
+
+  ports.forEach(({ name, games = [] }, i) => {
+    const section = document.createElement("section");
+    section.className = "port-section";
+    section.setAttribute("aria-labelledby", `port-heading-${i}`);
+
+    const h2 = document.createElement("h2");
+    h2.className = "section-label";
+    h2.id = `port-heading-${i}`;
+    h2.textContent = name;
+
+    const ul = document.createElement("ul");
+    ul.className = "links";
+
+    games.forEach(({ label, url }) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = url;
+      a.dataset.url = url;
+      const text = document.createElement("span");
+      text.textContent = label;
+      const arrow = document.createElement("span");
+      arrow.className = "arrow";
+      arrow.textContent = "->";
+      a.append(text, arrow);
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    section.append(h2, ul);
+    container.appendChild(section);
+  });
+}
+
 async function loadRpcModules(config) {
   const names = config.modules || [];
 
@@ -126,6 +163,7 @@ async function main() {
     initPlayer(config.player);
 
     renderSocials(config.socials);
+    renderPorts(config.ports);
     await loadRpcModules(config);
   } catch (err) {
     console.error("couldn't load config.yml", err);

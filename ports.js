@@ -66,16 +66,17 @@
     applyRoute();
   });
 
-  document.querySelectorAll('#view-ports a[data-url]').forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      currentUrl = link.dataset.url;
-      title.textContent = link.querySelector('span').textContent;
-      note.textContent = 'Some sites block iframe embedding. If the page is blank, use Open in new tab.';
-      loadFrame(currentUrl);
-      history.pushState(null, '', '#viewer');
-      applyRoute();
-    });
+  // Links are rendered from config.yml after load, so listen on the container.
+  viewPorts.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-url]');
+    if (!link) return;
+    event.preventDefault();
+    currentUrl = link.dataset.url;
+    title.textContent = link.querySelector('span').textContent;
+    note.textContent = 'Some sites block iframe embedding. If the page is blank, use Open in new tab.';
+    loadFrame(currentUrl);
+    history.pushState(null, '', '#viewer');
+    applyRoute();
   });
 
   function closeViewer() {
