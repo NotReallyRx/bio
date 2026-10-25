@@ -49,3 +49,20 @@ ports:
         url: https://notreallyrx.github.io/Milk-inside-a-bag-of-milk-inside-a-bag-of-milk/
       - label: milk outside a bag of milk
         url: https://notreallyrx.github.io/Milk-outside-a-bag-of-milk-outside-a-bag-of-milk/
+
+projects:
+  - label: Forgejo
+    url: https://git.notreallyrx.xyz
+  - label: NotReallyRx
+    url: https://git.notreallyrx.xyz/NotReallyRx
+  - label: bio
+    url: https://git.notreallyrx.xyz/NotReallyRx/bio
+
+polymods:
+  # Where the import button sends a mod. {url} gets replaced with the mod's
+  # (URL-encoded) url, e.g. https://example.com/game/?mod={url}
+  # Leave empty to just copy the mod's url to the clipboard.
+  import: ""
+  mods:
+    # - name: Example Mod
+    #   url: https://example.com/example-mod.zip

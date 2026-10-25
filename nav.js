@@ -1,10 +1,14 @@
 (() => {
   const body = document.body;
+  const stage = document.getElementById('stage');
   const track = document.getElementById('track');
-  const viewBio = document.getElementById('view-bio');
-  const viewPorts = document.getElementById('view-ports');
-  const tabPorts = document.getElementById('tab-ports');
-  const tabBio = document.getElementById('tab-bio');
+  const views = {
+    bio: document.getElementById('view-bio'),
+    ports: document.getElementById('view-ports'),
+    projects: document.getElementById('view-projects'),
+    polymods: document.getElementById('view-polymods'),
+  };
+  const tabs = [...document.querySelectorAll('.edge-tab')];
 
   const viewer = document.getElementById('viewer');
   const frameWrap = document.querySelector('.frame-wrap');
@@ -24,15 +28,20 @@
     frameWrap.replaceChildren(f);
   }
 
-  function setPorts(on) {
-    track.classList.toggle('show-ports', on);
-    body.classList.toggle('on-ports', on);
-    viewBio.inert = on;
-    viewPorts.inert = !on;
-    viewBio.setAttribute('aria-hidden', String(on));
-    viewPorts.setAttribute('aria-hidden', String(!on));
-    tabPorts.inert = on;
-    tabBio.inert = !on;
+  function setView(name) {
+    body.dataset.view = name;
+    track.classList.toggle('show-ports', name === 'ports');
+    track.classList.toggle('show-projects', name === 'projects');
+    stage.classList.toggle('show-polymods', name === 'polymods');
+    for (const [key, el] of Object.entries(views)) {
+      el.inert = key !== name;
+      el.setAttribute('aria-hidden', String(key !== name));
+    }
+    tabs.forEach((tab) => {
+      const on = tab.dataset.on === name;
+      tab.inert = !on;
+      tab.classList.toggle('visible', on);
+    });
   }
 
   function setViewer(on) {
@@ -46,28 +55,35 @@
     }
   }
 
-  // #ports = ports view, #viewer = a game open on top of ports, anything else = bio
+  function viewFromHash(h) {
+    if (h === '#ports' || h === '#viewer') return 'ports';
+    if (h === '#projects') return 'projects';
+    if (h === '#polymods') return 'polymods';
+    return 'bio';
+  }
+
+  // #ports / #projects / #polymods = those pages, #viewer = a game open on top
+  // of ports, anything else = bio
   function applyRoute() {
     const h = location.hash;
     if (h === '#viewer' && !currentUrl) {
       history.replaceState(null, '', '#ports');
       return applyRoute();
     }
-    setPorts(h === '#ports' || h === '#viewer');
+    setView(viewFromHash(h));
     setViewer(h === '#viewer');
   }
 
-  tabPorts.addEventListener('click', () => {
-    history.pushState(null, '', '#ports');
-    applyRoute();
-  });
-  tabBio.addEventListener('click', () => {
-    history.pushState(null, '', location.pathname + location.search);
-    applyRoute();
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const to = tab.dataset.goto;
+      history.pushState(null, '', to === 'bio' ? location.pathname + location.search : '#' + to);
+      applyRoute();
+    });
   });
 
-  // Links are rendered from config.yml after load, so listen on the container.
-  viewPorts.addEventListener('click', (event) => {
+  // Port links are rendered from config.yml after load, so listen on the page.
+  views.ports.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-url]');
     if (!link) return;
     event.preventDefault();

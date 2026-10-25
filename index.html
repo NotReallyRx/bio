@@ -14,7 +14,22 @@
   </head>
   <body>
     <div class="viewport">
+      <div class="stage" id="stage">
       <div class="track" id="track">
+        <section class="view" id="view-projects" aria-label="Projects" aria-hidden="true" inert>
+          <main class="card">
+            <div class="head">
+              <div class="head-text">
+                <h1 class="name">projects</h1>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <ul class="links" id="projects-links"></ul>
+          </main>
+        </section>
+
         <section class="view" id="view-bio" aria-label="Bio">
     <main class="card">
       <div class="head">
@@ -51,13 +66,42 @@
           </main>
         </section>
       </div>
+
+      <section class="view view-polymods" id="view-polymods" aria-label="Polymods" aria-hidden="true" inert>
+        <main class="card">
+          <div class="head">
+            <div class="head-text">
+              <h1 class="name">polymods</h1>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <ul class="links mod-list" id="mods-list"></ul>
+          <p class="empty" id="mods-empty" hidden>no mods yet, add some in config.yml</p>
+        </main>
+      </section>
+      </div>
     </div>
 
-    <button class="edge-tab edge-tab-right" id="tab-ports" type="button" aria-label="Open web ports">
+    <button class="edge-tab edge-tab-right" type="button" data-on="bio" data-goto="ports" aria-label="Open web ports">
       <span class="tab-arrow">&gt;</span><span class="tab-label">ports</span>
     </button>
-    <button class="edge-tab edge-tab-left" id="tab-bio" type="button" aria-label="Back to bio" inert>
+    <button class="edge-tab edge-tab-left" type="button" data-on="bio" data-goto="projects" aria-label="Open projects">
+      <span class="tab-arrow">&lt;</span><span class="tab-label">projects</span>
+    </button>
+    <button class="edge-tab edge-tab-bottom" type="button" data-on="bio" data-goto="polymods" aria-label="Open polymods">
+      <span class="tab-arrow">^</span><span class="tab-label">polymods</span>
+    </button>
+
+    <button class="edge-tab edge-tab-left" type="button" data-on="ports" data-goto="bio" aria-label="Back to bio" inert>
       <span class="tab-arrow">&lt;</span><span class="tab-label">bio</span>
+    </button>
+    <button class="edge-tab edge-tab-right" type="button" data-on="projects" data-goto="bio" aria-label="Back to bio" inert>
+      <span class="tab-arrow">&gt;</span><span class="tab-label">bio</span>
+    </button>
+    <button class="edge-tab edge-tab-top" type="button" data-on="polymods" data-goto="bio" aria-label="Back to bio" inert>
+      <span class="tab-arrow">v</span><span class="tab-label">bio</span>
     </button>
 
     <section class="viewer" id="viewer" aria-label="Embedded site viewer" aria-hidden="true">
@@ -102,6 +146,6 @@
     </div>
 
     <script type="module" src="main.js"></script>
-    <script src="ports.js"></script>
+    <script src="nav.js"></script>
   </body>
 </html>

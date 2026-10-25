@@ -59,6 +59,88 @@ function renderPorts(ports = []) {
   });
 }
 
+function renderProjects(projects = []) {
+  const ul = document.getElementById("projects-links");
+  if (!ul) return;
+
+  projects.forEach(({ label, url }) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    const text = document.createElement("span");
+    text.textContent = label;
+    const arrow = document.createElement("span");
+    arrow.className = "arrow";
+    arrow.textContent = "->";
+    a.append(text, arrow);
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch (_) {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch (_) {}
+    ta.remove();
+    return ok;
+  }
+}
+
+function renderPolymods(polymods = {}) {
+  const ul = document.getElementById("mods-list");
+  const empty = document.getElementById("mods-empty");
+  if (!ul) return;
+
+  const mods = (polymods && polymods.mods) || [];
+  const importTemplate = (polymods && polymods.import) || "";
+  empty.hidden = mods.length > 0;
+
+  mods.forEach(({ name, url }) => {
+    const li = document.createElement("li");
+    li.className = "mod-row";
+
+    const label = document.createElement("span");
+    label.className = "mod-name";
+    label.textContent = name;
+    label.title = name;
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "import-btn";
+    btn.textContent = "import";
+    btn.addEventListener("click", async () => {
+      if (importTemplate) {
+        window.open(
+          importTemplate.replace("{url}", encodeURIComponent(url)),
+          "_blank",
+          "noopener,noreferrer",
+        );
+        return;
+      }
+      const ok = await copyText(url);
+      btn.textContent = ok ? "copied" : "failed";
+      setTimeout(() => (btn.textContent = "import"), 1500);
+    });
+
+    li.append(label, btn);
+    ul.appendChild(li);
+  });
+}
+
 async function loadRpcModules(config) {
   const names = config.modules || [];
 
@@ -164,6 +246,8 @@ async function main() {
 
     renderSocials(config.socials);
     renderPorts(config.ports);
+    renderProjects(config.projects);
+    renderPolymods(config.polymods);
     await loadRpcModules(config);
   } catch (err) {
     console.error("couldn't load config.yml", err);
