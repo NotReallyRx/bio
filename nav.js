@@ -31,7 +31,8 @@
   function setView(name) {
     body.dataset.view = name;
     track.classList.toggle('show-ports', name === 'ports');
-    track.classList.toggle('show-projects', name === 'projects');
+    // polymods sits directly above projects, so the track stays on projects
+    track.classList.toggle('show-projects', name === 'projects' || name === 'polymods');
     stage.classList.toggle('show-polymods', name === 'polymods');
     for (const [key, el] of Object.entries(views)) {
       el.inert = key !== name;
