@@ -64,5 +64,5 @@ polymods:
   # Leave empty to just copy the mod's url to the clipboard.
   import: ""
   mods:
-    # - name: Example Mod
-    #   url: https://example.com/example-mod.zip
+    - name: PolyPlaytime
+      url: "https://cdn.notreallyrx.xyz/raw/PolyMods/PolyPlaytime@main/"
