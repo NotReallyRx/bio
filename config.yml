@@ -69,3 +69,5 @@ polymods:
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/PolyProxy@main/"
     - name: HeadsUpSplits
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/HeadsUpSplits@main/"
+    - name: NoItalics
+      url: "https://cdn.notreallyrx.xyz/raw/PolyMods/NoItalics@main/"
