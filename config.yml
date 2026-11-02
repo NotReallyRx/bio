@@ -67,3 +67,5 @@ polymods:
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/NowPlayingRPC@main/"
     - name: PolyProxy
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/PolyProxy@main/"
+    - name: HeadsUpSplits
+      url: "https://cdn.notreallyrx.xyz/raw/PolyMods/PolyProxy@main/"
