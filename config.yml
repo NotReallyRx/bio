@@ -71,3 +71,7 @@ polymods:
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/HeadsUpSplits@main/"
     - name: NoItalics
       url: "https://cdn.notreallyrx.xyz/raw/PolyMods/NoItalics@main/"
+    - name: PolyPastes
+      url: "https://cdn.notreallyrx.xyz/raw/PolyMods/PolyPastes@main/"
+    - name: 3DecSpeed
+      url: "https://cdn.notreallyrx.xyz/raw/PolyMods/3DecSpeed@main/"
